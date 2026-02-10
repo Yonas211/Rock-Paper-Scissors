@@ -7,7 +7,65 @@
 </head>
 <body>
     <script>
-        console.log("Hello,World");
+        let computerChoice, humanChoice;
+        let humanScore=0, computerScore=0;
+        function getComputerChoice() {
+            let a = Math.random();
+            if(a>=0 && a<1/3) {
+                computerChoice="Rock";
+            }else if(a>=1/3 && a<2/3) {
+                computerChoice="Paper";
+            }else {
+                computerChoice="Scissors";
+            }
+            console.log("Computer's Choice: "+ computerChoice);
+        }
+        function getHumanChoice() {
+            humanChoice=prompt("Choose between \"Rock\", \"Paper\" and \"Scissors\"");
+            console.log("Your Choice: "+ humanChoice);
+        }
+        function playRound() {
+            getComputerChoice();
+            getHumanChoice();
+            if(computerChoice.toLowerCase()=="rock") {
+                if(humanChoice.toLowerCase()=="rock") {
+                    console.log("DRAW!");
+                }else if(humanChoice.toLowerCase()=="paper") {
+                    console.log("You Won! Paper beats Rock.");
+                    humanScore++;
+                }else if(humanChoice.toLowerCase()=="scissora") {
+                    console.log("You Lose! Rock beats Scissors.");
+                    computerScore++;
+                }
+            }else if(computerChoice.toLowerCase()=="paper") {
+                if(humanChoice.toLowerCase()=="rock") {
+                    console.log("You Lose! Paper beats Rock.")
+                    computerScore++;
+                }else if(humanChoice.toLowerCase()=="paper") {
+                    console.log("DRAW!");
+                }else if(humanChoice.toLowerCase()=="scissors") {
+                    console.log("You Won! Scissors beats Paper.");
+                    humanScore++;
+                }
+            }else if(computerChoice.toLowerCase()=="scissors") {
+                if(humanChoice.toLowerCase()=="rock") {
+                    console.log("You Won! Rock beats Scissors.");
+                    humanScore++;
+                }else if(humanChoice.toLowerCase()=="paper") {
+                    console.log("You Lose! Scissors beats Paper.");
+                    computerScore++;
+                }else if(humanChoice.toLowerCase()=="scissors") {
+                    console.log("DRAW!");
+                }
+            }
+        }
+        function playGame() {
+            for(let i=0;i<5;i++) {
+                playRound();
+                console.log("Computer Score: " + computerScore + "\n"+ "Human Score: " + humanScore);
+            }
+        }
+        playGame();
     </script>
 </body>
 </html>
