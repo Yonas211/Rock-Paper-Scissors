@@ -6,8 +6,16 @@
     <title>Document</title>
 </head>
 <body>
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissors">Scissors</button>
+
+    <div id="results"></div>
+    <div id="winner"></div>
     <script>
-        let computerChoice, humanChoice;
+        let round=0;
+        const maxRounds=5;
+        let computerChoice;
         let humanScore=0, computerScore=0;
         function getComputerChoice() {
             let a = Math.random();
@@ -18,22 +26,17 @@
             }else {
                 computerChoice="Scissors";
             }
-            console.log("Computer's Choice: "+ computerChoice);
         }
-        function getHumanChoice() {
-            humanChoice=prompt("Choose between \"Rock\", \"Paper\" and \"Scissors\"");
-            console.log("Your Choice: "+ humanChoice);
-        }
-        function playRound() {
+        function playRound(humanChoice) {
+            round++;
             getComputerChoice();
-            getHumanChoice();
             if(computerChoice.toLowerCase()=="rock") {
                 if(humanChoice.toLowerCase()=="rock") {
                     console.log("DRAW!");
                 }else if(humanChoice.toLowerCase()=="paper") {
                     console.log("You Won! Paper beats Rock.");
                     humanScore++;
-                }else if(humanChoice.toLowerCase()=="scissora") {
+                }else if(humanChoice.toLowerCase()=="scissors") {
                     console.log("You Lose! Rock beats Scissors.");
                     computerScore++;
                 }
@@ -58,14 +61,34 @@
                     console.log("DRAW!");
                 }
             }
-        }
-        function playGame() {
-            for(let i=0;i<5;i++) {
-                playRound();
-                console.log("Computer Score: " + computerScore + "\n"+ "Human Score: " + humanScore);
+            resultsDiv.textContent=`Human Score ${humanScore} - ${computerScore} Computer Score `;
+            if(round==maxRounds) {
+                if(humanScore>computerScore) {
+                    winnerDiv.textContent="YOU WON!";
+                }else if(humanScore==computerScore) {
+                    winnerDiv.textContent="DRAW!";
+                }else {
+                    winnerDiv.textContent="YOU LOST!";
+                }
+                rockBtn.disabled=true;
+                paperBtn.disabled=true;
+                scissorsBtn.disabled=true;
             }
         }
-        playGame();
+        const rockBtn=document.getElementById("rock");
+        const paperBtn=document.getElementById("paper");
+        const scissorsBtn=document.getElementById("scissors");
+        const resultsDiv=document.getElementById("results");
+        const winnerDiv=document.getElementById("winner");
+        rockBtn.addEventListener("click", ()=> {
+            playRound("rock");
+        });
+        paperBtn.addEventListener("click", ()=> {
+            playRound("paper");
+        });
+        scissorsBtn.addEventListener("click", ()=> {
+            playRound("scissors");
+        });
     </script>
 </body>
 </html>
